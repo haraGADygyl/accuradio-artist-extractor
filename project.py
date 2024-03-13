@@ -11,13 +11,13 @@ from selenium.webdriver.support import expected_conditions as ec
 # Constants
 ARTISTS_FILE = "artists.txt"
 URL = "https://www.accuradio.com/alternative-rock/"
-WAIT_TIME = 180
+WAIT_TIME_SECONDS = 180
 
 
 # Function to extract the song artist using Selenium
 def extract_artist(driver):
     try:
-        artist_element = WebDriverWait(driver, 10).until(
+        artist_element = WebDriverWait(driver, 15).until(
             ec.visibility_of_element_located((By.ID, "songartist"))
         )
         return artist_element.text.strip()
@@ -82,8 +82,8 @@ def main():
             else:
                 print(f"Artist {artist} already exists in the file.")
 
-        pbar = tqdm(total=WAIT_TIME, desc="Waiting")
-        for _ in range(WAIT_TIME):
+        pbar = tqdm(total=WAIT_TIME_SECONDS, desc="Waiting")
+        for _ in range(WAIT_TIME_SECONDS):
             pbar.update(1)
             time.sleep(1)
         pbar.close()
